@@ -20,7 +20,7 @@ import ex02.filter.MySecurityFilter03;
 import ex02.filter.MySecurityFilter04;
 
 @Configuration
-public class SecurityConfig01 {
+public class SecurityConfig02 {
 	
 	
 	@Bean
@@ -28,28 +28,7 @@ public class SecurityConfig01 {
 	public FilterChainProxy springSecurityFilterChain() {
 		List<SecurityFilterChain> securityFilterChain = Arrays.asList(
 				new DefaultSecurityFilterChain(new AntPathRequestMatcher("/assets/**")),
-				// 위 코드로 대체 
-//				new SecurityFilterChain() {
-//						String uri = request.getRequestURI().replaceAll(request.getContextPath(), "");
-//						return new AntPathMatcher().match("/assets/**",uri);
-//					}
-//					public List<Filter> getFilters(){
-//						return null;
-//					}
-//				},
-				
 				new DefaultSecurityFilterChain(new AntPathRequestMatcher("/**"),mySecurityFilter01(),mySecurityFilter02(),mySecurityFilter03(),mySecurityFilter04() )
-//				new SecurityFilterChain() {
-//					public boolean matches(HttpServletRequest request) {
-//						String uri = request.getRequestURI().replaceAll(request.getContextPath(), "");
-//						return new AntPathMatcher().match("/**",uri);
-//					}
-//					public List<Filter> getFilters(){
-//						//filter가 들어갈 자리
-//						return Arrays.asList(
-//								mySecurityFilter01(),mySecurityFilter02(),mySecurityFilter03(),mySecurityFilter04());
-//					}
-//				}
 			);
 		
 		

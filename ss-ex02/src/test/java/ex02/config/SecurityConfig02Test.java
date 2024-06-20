@@ -24,9 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes={WebConfig.class, SecurityConfig01.class})
+@ContextConfiguration(classes={WebConfig.class, SecurityConfig02.class})
 @WebAppConfiguration
-public class SecurityConfig01Test {
+public class SecurityConfig02Test {
 	private MockMvc mvc;
 	private FilterChainProxy filterChainProxy;
 	
@@ -59,7 +59,9 @@ public class SecurityConfig01Test {
 	
 	@Test
 	public void testSecurityFilterChain01() throws Throwable{
-		mvc.perform(get("/assets/images/logo.png"));
+		mvc.perform(get("/assets/images/logo.png"))
+		.andExpect(status().isOk())
+		.andExpect(cookie().value("MySecurityFilter04", "Works"));
 	}
 	
 	@Test
@@ -67,8 +69,6 @@ public class SecurityConfig01Test {
 		mvc
 			.perform(get("/hello"))
 			.andExpect(status().isOk())
-			.andExpect(cookie().value("MySecurityFilter01", "Works"))
-			.andExpect(cookie().value("MySecurityFilter02", "Works"))
-			.andExpect(cookie().value("MySecurityFilter03", "Works"));
+			.andExpect(cookie().value("MySecurityFilter04", "Works"));
 	}
 }
